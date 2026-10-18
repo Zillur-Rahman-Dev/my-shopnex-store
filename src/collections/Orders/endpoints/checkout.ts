@@ -232,7 +232,8 @@ export const checkoutEndpoint: Endpoint = {
           sessionId: `checkout-${orderId}`,
           cartItems: validatedItems.map((item) => ({
             product: parseInt(item.id),
-            variantId: item.variantId,
+            // variantId: item.variantId,
+            variantId: item.variantId || 1,
             quantity: item.quantity,
           })),
           completed: true,

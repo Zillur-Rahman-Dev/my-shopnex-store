@@ -19,7 +19,8 @@ export async function getPageByHandle({ handle }: { handle: string }): Promise<P
       },
     )
 
-    return response.docs[0] || null
+    // return response.docs[0] || null
+    return response?.docs?.[0] || null
   } catch (error) {
     console.error('Failed to fetch puck pages:', error)
     return null
