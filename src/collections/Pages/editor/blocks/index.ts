@@ -1,3 +1,4 @@
+export { ContainerBlock } from "./ContainerBlock";
 export { HeaderBlock } from "./HeaderBlock";
 export { HeadingBlock } from "./HeadingBlock";
 export { TextBlock } from "../components/TextBlock";
@@ -10,3 +11,8 @@ export { FeatureCard } from "./FeatureCard";
 export { NewsletterSection } from "./NewsletterSection";
 export { FooterSection } from "./FooterSection";
 export { Spacer } from "../components/Spacer";
+export { FaqSection } from "./FaqSection";
+export { PricingSection } from "./PricingSection";
+export { TestimonialSection } from "./TestimonialSection";
+export { CtaSection } from "./CtaSection";
+export { SplitSection } from "./SplitSection";

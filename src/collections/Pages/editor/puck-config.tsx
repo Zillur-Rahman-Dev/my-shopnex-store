@@ -3,6 +3,7 @@ import { PuckProps } from './puck-types'
 
 // Import blocks (complex sections/layouts)
 import {
+  ContainerBlock,
   HeaderBlock,
   HeadingBlock,
   HeroSection,
@@ -12,6 +13,11 @@ import {
   FeatureCard,
   NewsletterSection,
   FooterSection,
+  FaqSection,
+  PricingSection,
+  TestimonialSection,
+  CtaSection,
+  SplitSection,
 } from './blocks'
 
 // Import components (simple reusable elements)
@@ -40,37 +46,54 @@ export const config: Config<PuckProps> = {
   },
   categories: {
     layout: {
-      title: '🏗️ Sections',
-      components: ['HeaderBlock', 'FooterSection', 'HeroSection', 'LandingHeroSection'],
+      title: '🏗️ Sections & Banners',
+      components: [
+        'ContainerBlock',
+        'HeroSection',
+        'LandingHeroSection',
+        'SplitSection',
+        'CtaSection',
+        'HeaderBlock',
+        'FooterSection',
+      ],
     },
     content: {
-      title: '📝 Blocks',
+      title: '📝 Marketing & Shop Blocks',
       components: [
-        'HeadingBlock',
-        'NewsletterSection',
-        'ProductGrid',
         'FeaturedProductsSection',
+        'ProductGrid',
+        'PricingSection',
+        'FaqSection',
+        'TestimonialSection',
         'FeatureCard',
+        'NewsletterSection',
+        'HeadingBlock',
       ],
     },
     elements: {
-      title: '🔧 Components',
+      title: '🔧 Components & Elements',
       components: ['TextBlock', 'ButtonBlock', 'Logo', 'StatItem', 'Badge', 'Spacer'],
     },
   },
   components: {
-    // Layout Blocks
-    HeaderBlock,
-    FooterSection,
+    // Layout & Section Blocks
+    ContainerBlock,
     HeroSection,
     LandingHeroSection,
-    // Content Blocks
-    HeadingBlock,
-    NewsletterSection,
-    ProductGrid,
+    SplitSection,
+    CtaSection,
+    HeaderBlock,
+    FooterSection,
+    // Marketing & Shop Blocks
     FeaturedProductsSection,
+    ProductGrid,
+    PricingSection,
+    FaqSection,
+    TestimonialSection,
     FeatureCard,
-    // Components
+    NewsletterSection,
+    HeadingBlock,
+    // Elements
     TextBlock,
     ButtonBlock,
     Logo,
