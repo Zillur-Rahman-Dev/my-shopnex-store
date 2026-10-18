@@ -7,6 +7,7 @@ import { groups } from '../groups'
 import { deleteMedia } from './hooks/delete-media'
 import { SeoField } from '@/fields/seo'
 import { admins, anyone } from '@/access/roles'
+import { revalidateProduct } from '@/utils/revalidate'
 
 export const Products: CollectionConfig = {
   slug: 'products',
@@ -298,6 +299,18 @@ export const Products: CollectionConfig = {
     SeoField(),
   ],
   hooks: {
-    afterDelete: [deleteMedia],
+    afterChange: [
+      ({ doc }) => {
+        revalidateProduct(doc?.id)
+        return doc
+      },
+    ],
+    afterDelete: [
+      deleteMedia,
+      ({ doc }) => {
+        revalidateProduct(doc?.id)
+        return doc
+      },
+    ],
   },
 }

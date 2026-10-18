@@ -15,6 +15,7 @@ export async function getPageByHandle({ handle }: { handle: string }): Promise<P
       {
         next: {
           revalidate: CACHE_TIMES.pages,
+          tags: ['pages', `page_${handle}`],
         },
       },
     )

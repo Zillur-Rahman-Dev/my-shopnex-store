@@ -62,6 +62,7 @@ export async function getProducts(): Promise<Product[]> {
       {
         next: {
           revalidate: CACHE_TIMES.products,
+          tags: ['products'],
         },
       },
     )
@@ -88,6 +89,7 @@ export async function getProduct(id: string): Promise<Product | undefined> {
       {
         next: {
           revalidate: CACHE_TIMES.products,
+          tags: ['products', `product_${id}`],
         },
       },
     )
@@ -117,6 +119,7 @@ export async function getFeaturedProducts(): Promise<Product[]> {
       {
         next: {
           revalidate: CACHE_TIMES.products,
+          tags: ['products', 'featured_products'],
         },
       },
     )

@@ -1,6 +1,7 @@
 import { admins, anyone } from '@/access/roles'
 import { CollectionConfig } from 'payload'
 import { groups } from '../groups'
+import { revalidatePage } from '@/utils/revalidate'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -14,6 +15,20 @@ export const Pages: CollectionConfig = {
     create: admins,
     update: admins,
     delete: admins,
+  },
+  hooks: {
+    afterChange: [
+      ({ doc }) => {
+        revalidatePage(doc?.handle)
+        return doc
+      },
+    ],
+    afterDelete: [
+      ({ doc }) => {
+        revalidatePage(doc?.handle)
+        return doc
+      },
+    ],
   },
   fields: [
     {

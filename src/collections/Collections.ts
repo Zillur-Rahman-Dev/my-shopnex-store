@@ -6,6 +6,7 @@ import { HandleField } from '@/fields/handle'
 import { groups } from './groups'
 import { SeoField } from '@/fields/seo'
 import { RichTextEditor } from '@/fields/RichTextEditor/RichTextEditor'
+import { revalidateCategory } from '@/utils/revalidate'
 
 export const Collections: CollectionConfig = {
   slug: 'collections',
@@ -14,6 +15,20 @@ export const Collections: CollectionConfig = {
     delete: admins,
     read: anyone,
     update: admins,
+  },
+  hooks: {
+    afterChange: [
+      ({ doc }) => {
+        revalidateCategory(doc?.handle)
+        return doc
+      },
+    ],
+    afterDelete: [
+      ({ doc }) => {
+        revalidateCategory(doc?.handle)
+        return doc
+      },
+    ],
   },
   admin: {
     group: groups.products.name,

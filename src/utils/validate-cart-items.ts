@@ -16,7 +16,11 @@ export const validateCartItems = (cartItems: Cart['cartItems'], logger: Payload[
       errors.push(`Invalid product: ${product}`)
       continue
     }
-    const variant = product.variants.find((v) => v.id === item.variantId)
+    const variant = product.variants.find(
+      (v) =>
+        String(v.id) === String(item.variantId) ||
+        ((v as any).vid && String((v as any).vid) === String(item.variantId)),
+    )
 
     if (!variant) {
       errors.push(`Invalid variantId: ${item.variantId} for product: ${product.title}`)
