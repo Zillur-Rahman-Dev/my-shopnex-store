@@ -11,7 +11,7 @@ export interface PricingPlan {
   period?: string
   description?: string
   popular?: boolean
-  features: string[]
+  features: Array<{ text: string } | string>
   ctaText: string
   ctaLink: string
 }
@@ -49,7 +49,8 @@ export const PricingSection: ComponentConfig<PricingSectionProps> = {
         features: {
           type: 'array',
           label: 'Included Features',
-          getItemSummary: (item) => item || 'Feature',
+          getItemSummary: (item: any) =>
+            typeof item === 'object' && item !== null ? item.text || 'Feature' : String(item || 'Feature'),
           arrayFields: {
             text: { type: 'text', label: 'Feature description' },
           },

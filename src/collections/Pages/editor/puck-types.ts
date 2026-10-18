@@ -149,7 +149,7 @@ export type PuckProps = {
             period?: string;
             description?: string;
             popular?: boolean;
-            features: any[];
+            features: Array<{ text: string } | string>;
             ctaText: string;
             ctaLink: string;
         }>;
@@ -181,9 +181,9 @@ export type PuckProps = {
         badge?: string;
         title: string;
         description?: string;
-        image: string;
+        image?: string;
         imagePosition?: 'left' | 'right';
-        bullets: Array<{ text: string }>;
+        bullets?: Array<{ text: string } | string>;
         buttonText?: string;
         buttonLink?: string;
     };

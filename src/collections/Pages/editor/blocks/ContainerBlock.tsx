@@ -163,98 +163,109 @@ export const ContainerBlock: ComponentConfig<ContainerBlockProps> = {
     puck,
   }: any) => {
     // 1. Vertical padding classes
-    const pyClass = {
+    const pyMap: Record<string, string> = {
       none: 'py-0',
       xs: 'py-4',
       sm: 'py-8',
       md: 'py-14',
       lg: 'py-20',
       xl: 'py-28',
-    }[paddingY] || 'py-14'
+    }
+    const pyClass = pyMap[paddingY as string] || 'py-14'
 
     // 2. Horizontal padding classes
-    const pxClass = {
+    const pxMap: Record<string, string> = {
       none: 'px-0',
       sm: 'px-4',
       md: 'px-6 md:px-8',
       lg: 'px-8 md:px-12',
-    }[paddingX] || 'px-6 md:px-8'
+    }
+    const pxClass = pxMap[paddingX as string] || 'px-6 md:px-8'
 
     // 3. Margin vertical classes
-    const myClass = {
+    const myMap: Record<string, string> = {
       none: 'my-0',
       sm: 'my-4',
       md: 'my-8',
       lg: 'my-16',
-    }[marginY] || 'my-0'
+    }
+    const myClass = myMap[marginY as string] || 'my-0'
 
     // 4. Container max-width
-    const widthClass = {
+    const widthMap: Record<string, string> = {
       boxed: 'max-w-7xl mx-auto',
       narrow: 'max-w-4xl mx-auto',
       wide: 'max-w-[1536px] mx-auto',
       full: 'w-full',
-    }[containerWidth] || 'max-w-7xl mx-auto'
+    }
+    const widthClass = widthMap[containerWidth as string] || 'max-w-7xl mx-auto'
 
     // 5. Gap classes
-    const gapClass = {
+    const gapMap: Record<string, string> = {
       none: 'gap-0',
       sm: 'gap-3',
       md: 'gap-6',
       lg: 'gap-9',
       xl: 'gap-12',
-    }[gap] || 'gap-6'
+    }
+    const gapClass = gapMap[gap as string] || 'gap-6'
 
     // 6. Layout mode classes
-    const layoutClass = {
+    const layoutMap: Record<string, string> = {
       'flex-col': 'flex flex-col',
       'flex-row': 'flex flex-row flex-wrap',
       'grid-2': 'grid grid-cols-1 md:grid-cols-2',
       'grid-3': 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
       'grid-4': 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4',
-    }[layout] || 'flex flex-col'
+    }
+    const layoutClass = layoutMap[layout as string] || 'flex flex-col'
 
     // 7. Align items classes
-    const alignClass = {
+    const alignMap: Record<string, string> = {
       stretch: 'items-stretch',
       start: 'items-start',
       center: 'items-center',
       end: 'items-end',
-    }[alignItems] || 'items-stretch'
+    }
+    const alignClass = alignMap[alignItems as string] || 'items-stretch'
 
     // 8. Justify content classes
-    const justifyClass = {
+    const justifyMap: Record<string, string> = {
       start: 'justify-start',
       center: 'justify-center',
       between: 'justify-between',
       around: 'justify-around',
       end: 'justify-end',
-    }[justifyContent] || 'justify-start'
+    }
+    const justifyClass = justifyMap[justifyContent as string] || 'justify-start'
 
     // 9. Background styling
-    const bgClass = {
+    const bgMap: Record<string, string> = {
       transparent: 'bg-transparent',
       white: 'bg-background text-foreground',
       muted: 'bg-muted/40 text-foreground',
       slate: 'bg-slate-50 dark:bg-slate-900/40 text-foreground',
       'primary-subtle': 'bg-primary/5 text-foreground',
       dark: 'bg-zinc-950 text-zinc-100',
-    }[background] || 'bg-transparent'
+    }
+    const bgClass = bgMap[background as string] || 'bg-transparent'
 
     // 10. Border & Corner Radius
-    const borderClass = {
+    const borderMap: Record<string, string> = {
       none: 'border-0 rounded-none',
       subtle: 'border border-border/60 rounded-xl',
       card: 'border border-border rounded-2xl shadow-sm',
       pill: 'border border-border rounded-3xl shadow-md',
-    }[borderStyle] || 'border-0 rounded-none'
+    }
+    const borderClass = borderMap[borderStyle as string] || 'border-0 rounded-none'
 
     // 11. Minimum height
-    const minHeightClass = {
+    const minHeightMap: Record<string, string> = {
       auto: 'min-h-0',
       'screen-half': 'min-h-[50vh]',
       'screen-full': 'min-h-screen',
-    }[minHeight] || 'min-h-0'
+    }
+    const minHeightClass = minHeightMap[minHeight as string] || 'min-h-0'
 
     // Combine inner layout classes
     const innerClasses = [

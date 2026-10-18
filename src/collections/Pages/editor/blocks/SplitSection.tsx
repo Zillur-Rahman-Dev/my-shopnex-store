@@ -32,7 +32,7 @@ export const SplitSection: ComponentConfig<SplitSectionProps> = {
     bullets: {
       type: 'array',
       label: 'Feature Bullet Points',
-      getItemSummary: (item) => (typeof item === 'string' ? item : item?.text || 'Point'),
+      getItemSummary: (item: any) => (typeof item === 'string' ? item : item?.text || 'Point'),
       arrayFields: {
         text: { type: 'text', label: 'Bullet point text' },
       },
