@@ -155,16 +155,16 @@
   }
 
   /* Hover states */
-  .hover\\:bg-primary:hover {
+  .hover\:bg-primary:hover {
     background-color: var(--primary);
   }
-  .hover\\:bg-secondary:hover {
+  .hover\:bg-secondary:hover {
     background-color: var(--secondary);
   }
-  .hover\\:bg-accent:hover {
+  .hover\:bg-accent:hover {
     background-color: var(--accent);
   }
-  .hover\\:text-primary:hover {
+  .hover\:text-primary:hover {
     color: var(--primary);
   }
 
@@ -235,30 +235,30 @@
   }
 
   /* More hover states */
-  .hover\\:bg-card:hover {
+  .hover\:bg-card:hover {
     background-color: var(--card);
   }
-  .hover\\:bg-muted:hover {
+  .hover\:bg-muted:hover {
     background-color: var(--muted);
   }
-  .hover\\:bg-destructive:hover {
+  .hover\:bg-destructive:hover {
     background-color: var(--destructive);
   }
-  .hover\\:text-foreground:hover {
+  .hover\:text-foreground:hover {
     color: var(--foreground);
   }
-  .hover\\:text-muted-foreground:hover {
+  .hover\:text-muted-foreground:hover {
     color: var(--muted-foreground);
   }
-  .hover\\:text-accent-foreground:hover {
+  .hover\:text-accent-foreground:hover {
     color: var(--accent-foreground);
   }
 
   /* Focus states */
-  .focus\\:ring-ring:focus {
+  .focus\:ring-ring:focus {
     --tw-ring-color: var(--ring);
   }
-  .focus\\:border-ring:focus {
+  .focus\:border-ring:focus {
     border-color: var(--ring);
   }
 

@@ -25,6 +25,7 @@ export interface ContainerBlockProps {
   background?: 'transparent' | 'white' | 'muted' | 'slate' | 'primary-subtle' | 'dark'
   borderStyle?: 'none' | 'subtle' | 'card' | 'pill'
   minHeight?: 'auto' | 'screen-half' | 'screen-full'
+  customClass?: string
 }
 
 export const ContainerBlock: ComponentConfig<ContainerBlockProps> = {
@@ -180,6 +181,7 @@ export const ContainerBlock: ComponentConfig<ContainerBlockProps> = {
     background: 'transparent',
     borderStyle: 'none',
     minHeight: 'auto',
+    customClass: '',
   },
   render: ({
     layout = 'flex-col',
