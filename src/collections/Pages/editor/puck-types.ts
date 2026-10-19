@@ -1,4 +1,5 @@
 import { Product } from "@/lib/products";
+import { TypographyStyle } from "./components/typography";
 
 export type PuckProps = {
     ContainerBlock: {
@@ -17,11 +18,17 @@ export type PuckProps = {
     HeadingBlock: {
         title: string;
         level: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-        align?: "left" | "center" | "right";
+        align?: "left" | "center" | "right" | "justify";
+        typography?: TypographyStyle;
+        customClass?: string;
+        baseColor?: string;
     };
     TextBlock: {
         text: string;
-        align?: "left" | "center" | "right";
+        align?: "left" | "center" | "right" | "justify";
+        typography?: TypographyStyle;
+        customClass?: string;
+        baseColor?: string;
     };
     ButtonBlock: {
         text: string;

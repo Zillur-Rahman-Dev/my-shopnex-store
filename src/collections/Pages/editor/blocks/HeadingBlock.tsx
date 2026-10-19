@@ -1,54 +1,99 @@
+import React from 'react'
 import { ComponentConfig } from '@puckeditor/core'
+import {
+  type TypographyStyle,
+  TypographyControlField,
+  RichTextInputField,
+  resolveTypographyClasses,
+  sanitizeRichText,
+} from '../components/typography'
 
 export interface HeadingBlockProps {
   title: string
   level: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  align?: 'left' | 'center' | 'right'
+  align?: 'left' | 'center' | 'right' | 'justify'
+  typography?: TypographyStyle
+  customClass?: string
+  baseColor?: string
 }
 
+const DEFAULT_LEVEL_SIZES: Record<string, string> = {
+  h1: 'text-4xl md:text-5xl',
+  h2: 'text-3xl md:text-4xl',
+  h3: 'text-2xl md:text-3xl',
+  h4: 'text-xl md:text-2xl',
+  h5: 'text-lg md:text-xl',
+  h6: 'text-base md:text-lg',
+}
+
+const VALID_LEVELS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as const
+
 export const HeadingBlock: ComponentConfig<HeadingBlockProps> = {
-  label: 'Heading Text',
+  label: 'Heading (H1 - H6)',
   fields: {
-    title: { type: 'text' },
     level: {
       type: 'select',
+      label: 'Heading Tag',
       options: [
-        { label: 'H1', value: 'h1' },
-        { label: 'H2', value: 'h2' },
-        { label: 'H3', value: 'h3' },
-        { label: 'H4', value: 'h4' },
-        { label: 'H5', value: 'h5' },
-        { label: 'H6', value: 'h6' },
+        { label: 'H1 - Main Title', value: 'h1' },
+        { label: 'H2 - Section Title', value: 'h2' },
+        { label: 'H3 - Subsection Title', value: 'h3' },
+        { label: 'H4 - Small Heading', value: 'h4' },
+        { label: 'H5 - Minor Heading', value: 'h5' },
+        { label: 'H6 - Smallest Heading', value: 'h6' },
       ],
     },
-    align: {
-      type: 'radio',
-      options: [
-        { label: 'Left', value: 'left' },
-        { label: 'Center', value: 'center' },
-        { label: 'Right', value: 'right' },
-      ],
+    title: {
+      type: 'custom',
+      render: ({ value, onChange }) => (
+        <RichTextInputField
+          value={value}
+          onChange={onChange}
+          label="Heading Content (Color 1, 2, or any letters/words)"
+          placeholder="e.g. Welcome to ShopNex Mega Store"
+          rows={3}
+        />
+      ),
+    },
+    typography: {
+      type: 'custom',
+      render: ({ value, onChange }) => (
+        <TypographyControlField value={value || {}} onChange={onChange} />
+      ),
     },
   },
   defaultProps: {
-    title: 'Heading',
+    title: 'Your Heading Here',
     level: 'h2',
-    align: 'left',
+    typography: {
+      align: 'left',
+      fontWeight: 'font-bold',
+      lineHeight: 'leading-tight',
+      fontSize: 'inherit',
+    },
   },
-  render: ({ title, level, align }) => {
-    const Heading = level
-    const alignClass =
-      align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'
+  render: ({ title, level, align, typography, customClass, baseColor }) => {
+    const safeLevel = (level && VALID_LEVELS.includes(level as any) ? level : 'h2') as (typeof VALID_LEVELS)[number]
+    const Heading = safeLevel
+    const defaultSize = DEFAULT_LEVEL_SIZES[safeLevel] || 'text-3xl'
 
-    const sizeClass = {
-      h1: 'text-4xl',
-      h2: 'text-3xl',
-      h3: 'text-2xl',
-      h4: 'text-xl',
-      h5: 'text-lg',
-      h6: 'text-base',
-    }[level]
+    // Combine legacy props if existing with typography object
+    const mergedTypography: TypographyStyle = {
+      ...typography,
+      align: typography?.align || align || 'left',
+      customClass: typography?.customClass || customClass || '',
+      baseColor: typography?.baseColor || baseColor,
+    }
 
-    return <Heading className={`font-bold ${alignClass} ${sizeClass}`}>{title}</Heading>
+    const typographyClasses = resolveTypographyClasses(mergedTypography, defaultSize, 'font-bold')
+    const finalStyle = mergedTypography.baseColor ? { color: mergedTypography.baseColor } : undefined
+
+    return (
+      <Heading
+        className={typographyClasses}
+        style={finalStyle}
+        dangerouslySetInnerHTML={{ __html: sanitizeRichText(title) }}
+      />
+    )
   },
 }
