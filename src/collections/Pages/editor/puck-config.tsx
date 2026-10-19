@@ -2,7 +2,7 @@ import { Config } from '@puckeditor/core'
 import { PuckProps, RootProps } from './puck-types'
 import { CustomCssEditorField } from './components/controls'
 
-// Import blocks (complex sections/layouts)
+// Import blocks (complex sections/layouts & shadcn components)
 import {
   ContainerBlock,
   HeaderBlock,
@@ -19,6 +19,20 @@ import {
   TestimonialSection,
   CtaSection,
   SplitSection,
+  TabsBlock,
+  AlertBannerBlock,
+  CarouselBlock,
+  SeparatorBlock,
+  AvatarGroupBlock,
+  ProgressBarBlock,
+  VideoEmbedBlock,
+  CollapsibleTextBlock,
+  TooltipBlock,
+  ComparisonTableBlock,
+  GridBlock,
+  FlexBlock,
+  RichTextBlock,
+  TemplateBlock,
 } from './blocks'
 
 // Import components (simple reusable elements)
@@ -84,59 +98,110 @@ export const config: Config<PuckProps, RootProps> = {
   },
   categories: {
     layout: {
-      title: '🏗️ Sections & Banners',
+      title: '🏗️ Layout & Structure',
       components: [
         'ContainerBlock',
+        'GridBlock',
+        'FlexBlock',
+        'SeparatorBlock',
+        'Spacer',
+      ],
+    },
+    sections: {
+      title: '🌟 Hero & Section Banners',
+      components: [
         'HeroSection',
         'LandingHeroSection',
+        'CarouselBlock',
         'SplitSection',
         'CtaSection',
         'HeaderBlock',
         'FooterSection',
+        'TemplateBlock',
       ],
     },
-    content: {
-      title: '📝 Marketing & Shop Blocks',
+    interactive: {
+      title: '✨ Shadcn UI & Interactive',
+      components: [
+        'TabsBlock',
+        'AlertBannerBlock',
+        'AvatarGroupBlock',
+        'ProgressBarBlock',
+        'VideoEmbedBlock',
+        'CollapsibleTextBlock',
+        'TooltipBlock',
+        'ComparisonTableBlock',
+        'FaqSection',
+      ],
+    },
+    shop: {
+      title: '🛍️ Shop & Marketing Blocks',
       components: [
         'FeaturedProductsSection',
         'ProductGrid',
         'PricingSection',
-        'FaqSection',
         'TestimonialSection',
         'FeatureCard',
         'NewsletterSection',
-        'HeadingBlock',
       ],
     },
     elements: {
-      title: '🔧 Components & Elements',
-      components: ['TextBlock', 'ButtonBlock', 'Logo', 'StatItem', 'Badge', 'Spacer'],
+      title: '✏️ Typography & Elements',
+      components: [
+        'HeadingBlock',
+        'RichTextBlock',
+        'TextBlock',
+        'ButtonBlock',
+        'Badge',
+        'Logo',
+        'StatItem',
+      ],
     },
   },
   components: {
-    // Layout & Section Blocks
+    // Layout & Grid/Flex Structure
     ContainerBlock,
+    GridBlock,
+    FlexBlock,
+    SeparatorBlock,
+    Spacer,
+
+    // Hero & Banners & Templates
     HeroSection,
     LandingHeroSection,
+    CarouselBlock,
     SplitSection,
     CtaSection,
     HeaderBlock,
     FooterSection,
-    // Marketing & Shop Blocks
+    TemplateBlock,
+
+    // Shadcn UI & Interactive
+    TabsBlock,
+    AlertBannerBlock,
+    AvatarGroupBlock,
+    ProgressBarBlock,
+    VideoEmbedBlock,
+    CollapsibleTextBlock,
+    TooltipBlock,
+    ComparisonTableBlock,
+    FaqSection,
+
+    // Shop & Marketing
     FeaturedProductsSection,
     ProductGrid,
     PricingSection,
-    FaqSection,
     TestimonialSection,
     FeatureCard,
     NewsletterSection,
+
+    // Typography & Basic Elements
     HeadingBlock,
-    // Elements
+    RichTextBlock,
     TextBlock,
     ButtonBlock,
+    Badge,
     Logo,
     StatItem,
-    Badge,
-    Spacer,
   },
 }

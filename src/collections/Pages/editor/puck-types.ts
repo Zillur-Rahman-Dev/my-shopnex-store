@@ -1,5 +1,21 @@
 import { Product } from "@/lib/products";
 import { TypographyStyle } from "./components/typography";
+import type {
+  TabsBlockProps,
+  AlertBannerBlockProps,
+  CarouselBlockProps,
+  SeparatorBlockProps,
+  AvatarGroupBlockProps,
+  ProgressBarBlockProps,
+  VideoEmbedBlockProps,
+  CollapsibleTextBlockProps,
+  TooltipBlockProps,
+  ComparisonTableBlockProps,
+  GridBlockProps,
+  FlexBlockProps,
+  RichTextBlockProps,
+  TemplateBlockProps,
+} from "./blocks";
 
 export type RootProps = {
     title?: string;
@@ -22,11 +38,13 @@ export type PuckProps = {
         background?: "transparent" | "white" | "muted" | "slate" | "primary-subtle" | "dark";
         borderStyle?: "none" | "subtle" | "card" | "pill";
         minHeight?: "auto" | "screen-half" | "screen-full";
+        customClass?: string;
     };
     HeadingBlock: {
         title: string;
         level: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
         align?: "left" | "center" | "right" | "justify";
+        containerWidth?: "contained" | "fluid";
         typography?: TypographyStyle;
         customClass?: string;
         baseColor?: string;
@@ -34,6 +52,7 @@ export type PuckProps = {
     TextBlock: {
         text: string;
         align?: "left" | "center" | "right" | "justify";
+        containerWidth?: "contained" | "fluid";
         typography?: TypographyStyle;
         customClass?: string;
         baseColor?: string;
@@ -202,4 +221,18 @@ export type PuckProps = {
         buttonText?: string;
         buttonLink?: string;
     };
+    TabsBlock: TabsBlockProps;
+    AlertBannerBlock: AlertBannerBlockProps;
+    CarouselBlock: CarouselBlockProps;
+    SeparatorBlock: SeparatorBlockProps;
+    AvatarGroupBlock: AvatarGroupBlockProps;
+    ProgressBarBlock: ProgressBarBlockProps;
+    VideoEmbedBlock: VideoEmbedBlockProps;
+    CollapsibleTextBlock: CollapsibleTextBlockProps;
+    TooltipBlock: TooltipBlockProps;
+    ComparisonTableBlock: ComparisonTableBlockProps;
+    GridBlock: GridBlockProps;
+    FlexBlock: FlexBlockProps;
+    RichTextBlock: RichTextBlockProps;
+    TemplateBlock: TemplateBlockProps;
 };

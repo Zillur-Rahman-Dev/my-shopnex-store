@@ -12,6 +12,7 @@ export interface HeadingBlockProps {
   title: string
   level: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   align?: 'left' | 'center' | 'right' | 'justify'
+  containerWidth?: 'contained' | 'fluid'
   typography?: TypographyStyle
   customClass?: string
   baseColor?: string
@@ -43,6 +44,14 @@ export const HeadingBlock: ComponentConfig<HeadingBlockProps> = {
         { label: 'H6 - Smallest Heading', value: 'h6' },
       ],
     },
+    containerWidth: {
+      type: 'select',
+      label: 'Container Width',
+      options: [
+        { label: '📦 Contained Standard (1280px)', value: 'contained' },
+        { label: '↔️ Fluid / Inherit (For Cards & Grids)', value: 'fluid' },
+      ],
+    },
     title: {
       type: 'custom',
       render: ({ value, onChange }) => (
@@ -65,6 +74,7 @@ export const HeadingBlock: ComponentConfig<HeadingBlockProps> = {
   defaultProps: {
     title: 'Your Heading Here',
     level: 'h2',
+    containerWidth: 'contained',
     typography: {
       align: 'left',
       fontWeight: 'font-bold',
@@ -72,7 +82,7 @@ export const HeadingBlock: ComponentConfig<HeadingBlockProps> = {
       fontSize: 'inherit',
     },
   },
-  render: ({ title, level, align, typography, customClass, baseColor }) => {
+  render: ({ title, level, align, containerWidth = 'contained', typography, customClass, baseColor }) => {
     const safeLevel = (level && VALID_LEVELS.includes(level as any) ? level : 'h2') as (typeof VALID_LEVELS)[number]
     const Heading = safeLevel
     const defaultSize = DEFAULT_LEVEL_SIZES[safeLevel] || 'text-3xl'
@@ -87,13 +97,19 @@ export const HeadingBlock: ComponentConfig<HeadingBlockProps> = {
 
     const typographyClasses = resolveTypographyClasses(mergedTypography, defaultSize, 'font-bold')
     const finalStyle = mergedTypography.baseColor ? { color: mergedTypography.baseColor } : undefined
+    const widthWrapper =
+      containerWidth === 'fluid'
+        ? 'w-full'
+        : 'w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'
 
     return (
-      <Heading
-        className={typographyClasses}
-        style={finalStyle}
-        dangerouslySetInnerHTML={{ __html: sanitizeRichText(title) }}
-      />
+      <div className={widthWrapper}>
+        <Heading
+          className={typographyClasses}
+          style={finalStyle}
+          dangerouslySetInnerHTML={{ __html: sanitizeRichText(title) }}
+        />
+      </div>
     )
   },
 }

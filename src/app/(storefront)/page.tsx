@@ -1,9 +1,8 @@
-import { Render } from '@puckeditor/core'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { getPageByHandle } from '@/lib/puck-pages'
 import { getFeaturedProducts } from '@/lib/products'
-import { config } from '@/collections/Pages/editor/puck-config'
+import { PuckRender } from '@/collections/Pages/editor/client-render'
 import { generatePageMetadata, generatePageJsonLd } from '@/lib/seo'
 import { seoConfig } from '@/lib/seo-config'
 
@@ -40,8 +39,7 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <Render
-        config={config}
+      <PuckRender
         data={page.page as any}
         metadata={{
           featuredProducts,

@@ -48,12 +48,18 @@ export const ButtonBlock: ComponentConfig<ButtonBlockProps> = {
 
     if (href) {
       return (
-        <a href={href}>
-          <ButtonComponent />
-        </a>
+        <div className="inline-block">
+          <a href={href}>
+            <ButtonComponent />
+          </a>
+        </div>
       )
     }
 
-    return <ButtonComponent />
+    return (
+      <div className="inline-block">
+        <ButtonComponent />
+      </div>
+    )
   },
 }

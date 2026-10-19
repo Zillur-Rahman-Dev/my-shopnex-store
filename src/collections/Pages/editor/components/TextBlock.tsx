@@ -11,6 +11,7 @@ import {
 export interface TextBlockProps {
   text: string
   align?: 'left' | 'center' | 'right' | 'justify'
+  containerWidth?: 'contained' | 'fluid'
   typography?: TypographyStyle
   customClass?: string
   baseColor?: string
@@ -19,6 +20,14 @@ export interface TextBlockProps {
 export const TextBlock: ComponentConfig<TextBlockProps> = {
   label: 'Text Paragraph',
   fields: {
+    containerWidth: {
+      type: 'select',
+      label: 'Container Width',
+      options: [
+        { label: '📦 Contained Standard (1280px)', value: 'contained' },
+        { label: '↔️ Fluid / Inherit (For Cards & Grids)', value: 'fluid' },
+      ],
+    },
     text: {
       type: 'custom',
       render: ({ value, onChange }) => (
@@ -40,6 +49,7 @@ export const TextBlock: ComponentConfig<TextBlockProps> = {
   },
   defaultProps: {
     text: 'Add your paragraph text here.',
+    containerWidth: 'contained',
     typography: {
       align: 'left',
       fontSize: 'text-base',
@@ -47,7 +57,7 @@ export const TextBlock: ComponentConfig<TextBlockProps> = {
       lineHeight: 'leading-relaxed',
     },
   },
-  render: ({ text, align, typography, customClass, baseColor }) => {
+  render: ({ text, align, containerWidth = 'contained', typography, customClass, baseColor }) => {
     // Combine legacy props if existing with typography object
     const mergedTypography: TypographyStyle = {
       ...typography,
@@ -67,13 +77,19 @@ export const TextBlock: ComponentConfig<TextBlockProps> = {
       : undefined
 
     const defaultTextColor = !mergedTypography.baseColor ? 'text-slate-600 dark:text-slate-300' : ''
+    const widthWrapper =
+      containerWidth === 'fluid'
+        ? 'w-full'
+        : 'w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'
 
     return (
-      <p
-        className={`${defaultTextColor} ${typographyClasses}`.trim()}
-        style={finalStyle}
-        dangerouslySetInnerHTML={{ __html: sanitizeRichText(text) }}
-      />
+      <div className={widthWrapper}>
+        <p
+          className={`${defaultTextColor} ${typographyClasses}`.trim()}
+          style={finalStyle}
+          dangerouslySetInnerHTML={{ __html: sanitizeRichText(text) }}
+        />
+      </div>
     )
   },
 }

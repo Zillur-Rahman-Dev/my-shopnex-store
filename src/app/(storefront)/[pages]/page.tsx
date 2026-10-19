@@ -1,8 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { Render } from '@puckeditor/core' // or your custom editor
 import { getPageByHandle } from '@/lib/puck-pages'
-import { config } from '@/collections/Pages/editor/puck-config'
+import { PuckRender } from '@/collections/Pages/editor/client-render'
 import { generateMetadata as generateSEOMetadata, generatePageJsonLd } from '@/lib/seo'
 import { seoConfig } from '@/lib/seo-config'
 
@@ -46,7 +45,7 @@ export default async function DynamicPage({ params }: DynamicPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <Render config={config} data={page.page as any} />
+      <PuckRender data={page.page as any} />
     </>
   )
 }

@@ -372,25 +372,15 @@ export const ContainerBlock: ComponentConfig<ContainerBlockProps> = {
         style={sectionStyle}
         className={`w-full transition-colors relative ${bgClass} ${borderClass} ${minHeightClass} ${customClass}`.trim()}
       >
-        {puck?.isEditing ? (
-          puck?.renderDropZone ? (
-            puck.renderDropZone({
-              zone: 'default',
-              className: innerClasses,
-              style: innerStyle,
-              minEmptyHeight: 96,
-            })
-          ) : (
-            <div className={innerClasses} style={innerStyle} />
-          )
+        {puck?.renderDropZone ? (
+          puck.renderDropZone({
+            zone: 'default',
+            className: innerClasses,
+            style: innerStyle,
+            minEmptyHeight: puck?.isEditing ? 96 : undefined,
+          })
         ) : (
-          <div className={innerClasses} style={innerStyle}>
-            {puck?.renderDropZone ? (
-              puck.renderDropZone({
-                zone: 'default',
-              })
-            ) : null}
-          </div>
+          <div className={innerClasses} style={innerStyle} />
         )}
       </section>
     )
