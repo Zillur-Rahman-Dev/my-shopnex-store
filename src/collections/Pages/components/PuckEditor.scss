@@ -3,3 +3,33 @@
     display: none;
   }
 }
+
+/* ==========================================================================
+   Puck Outline Tree Chevron / Arrow: Move from start (left) to end (right)
+   ========================================================================== */
+[class*='_Layer-clickable'],
+[class*='Layer-clickable'] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  padding-left: 10px !important;
+  padding-right: 8px !important;
+}
+
+[class*='_Layer-chevron'],
+[class*='Layer-chevron'] {
+  order: 99 !important;
+  margin-left: auto !important;
+  margin-inline-start: auto !important;
+  margin-inline-end: 2px !important;
+  flex-shrink: 0 !important;
+}
+
+[class*='_Layer-name'],
+[class*='Layer-name'],
+[class*='_Layer-title'],
+[class*='Layer-title'] {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}

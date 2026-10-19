@@ -1,13 +1,25 @@
 import React from 'react'
 import { ComponentConfig } from '@puckeditor/core'
+import { WidthControlField, RangeSliderField } from '../components/controls'
+
+export interface ContainerWidthSetting {
+  value: number
+  unit: 'px' | '%'
+}
 
 export interface ContainerBlockProps {
   layout?: 'flex-col' | 'flex-row' | 'grid-2' | 'grid-3' | 'grid-4'
-  containerWidth?: 'boxed' | 'narrow' | 'wide' | 'full'
-  paddingY?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  paddingX?: 'none' | 'sm' | 'md' | 'lg'
-  marginY?: 'none' | 'sm' | 'md' | 'lg'
-  gap?: 'none' | 'sm' | 'md' | 'lg' | 'xl'
+  containerWidth?:
+    | 'boxed'
+    | 'narrow'
+    | 'wide'
+    | 'full'
+    | ContainerWidthSetting
+    | string
+  paddingY?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number | string
+  paddingX?: 'none' | 'sm' | 'md' | 'lg' | number | string
+  marginY?: 'none' | 'sm' | 'md' | 'lg' | number | string
+  gap?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | number | string
   alignItems?: 'stretch' | 'start' | 'center' | 'end'
   justifyContent?: 'start' | 'center' | 'between' | 'around' | 'end'
   background?: 'transparent' | 'white' | 'muted' | 'slate' | 'primary-subtle' | 'dark'
@@ -16,7 +28,7 @@ export interface ContainerBlockProps {
 }
 
 export const ContainerBlock: ComponentConfig<ContainerBlockProps> = {
-  label: '📦 Container (Flex / Grid)',
+  label: 'Container (Flex / Grid)',
   fields: {
     layout: {
       type: 'select',
@@ -30,57 +42,74 @@ export const ContainerBlock: ComponentConfig<ContainerBlockProps> = {
       ],
     },
     containerWidth: {
-      type: 'select',
-      label: 'Container Width',
-      options: [
-        { label: 'Boxed (Standard - 1280px)', value: 'boxed' },
-        { label: 'Narrow (Centered - 896px)', value: 'narrow' },
-        { label: 'Wide (Large - 1536px)', value: 'wide' },
-        { label: 'Full Width (100% Screen)', value: 'full' },
-      ],
+      type: 'custom',
+      render: ({ value, onChange }) => (
+        <WidthControlField value={value as any} onChange={onChange} />
+      ),
     },
     paddingY: {
-      type: 'select',
-      label: 'Padding Y (Vertical Spacing)',
-      options: [
-        { label: 'None (0px)', value: 'none' },
-        { label: 'XS (16px)', value: 'xs' },
-        { label: 'Small (32px)', value: 'sm' },
-        { label: 'Medium (56px)', value: 'md' },
-        { label: 'Large (80px)', value: 'lg' },
-        { label: 'XL (112px)', value: 'xl' },
-      ],
+      type: 'custom',
+      render: ({ value, onChange }) => (
+        <RangeSliderField
+          label="Padding Y (Top & Bottom)"
+          value={value as any}
+          onChange={onChange}
+          min={0}
+          max={200}
+          step={2}
+          unit="px"
+          defaultValue={56}
+          description="Vertical internal spacing"
+        />
+      ),
     },
     paddingX: {
-      type: 'select',
-      label: 'Padding X (Horizontal Spacing)',
-      options: [
-        { label: 'None (0px)', value: 'none' },
-        { label: 'Small (16px)', value: 'sm' },
-        { label: 'Medium (24px - Default)', value: 'md' },
-        { label: 'Large (48px)', value: 'lg' },
-      ],
-    },
-    marginY: {
-      type: 'select',
-      label: 'Margin Y (Outer Spacing)',
-      options: [
-        { label: 'None (0px)', value: 'none' },
-        { label: 'Small (16px)', value: 'sm' },
-        { label: 'Medium (32px)', value: 'md' },
-        { label: 'Large (64px)', value: 'lg' },
-      ],
+      type: 'custom',
+      render: ({ value, onChange }) => (
+        <RangeSliderField
+          label="Padding X (Left & Right)"
+          value={value as any}
+          onChange={onChange}
+          min={0}
+          max={150}
+          step={2}
+          unit="px"
+          defaultValue={24}
+          description="Horizontal internal spacing"
+        />
+      ),
     },
     gap: {
-      type: 'select',
-      label: 'Gap (Between Items)',
-      options: [
-        { label: 'None (0px)', value: 'none' },
-        { label: 'Small (12px)', value: 'sm' },
-        { label: 'Medium (24px - Default)', value: 'md' },
-        { label: 'Large (36px)', value: 'lg' },
-        { label: 'XL (48px)', value: 'xl' },
-      ],
+      type: 'custom',
+      render: ({ value, onChange }) => (
+        <RangeSliderField
+          label="Gap (Between Items)"
+          value={value as any}
+          onChange={onChange}
+          min={0}
+          max={100}
+          step={2}
+          unit="px"
+          defaultValue={24}
+          description="Spacing between child blocks"
+        />
+      ),
+    },
+    marginY: {
+      type: 'custom',
+      render: ({ value, onChange }) => (
+        <RangeSliderField
+          label="Margin Y (Outer Spacing)"
+          value={value as any}
+          onChange={onChange}
+          min={0}
+          max={150}
+          step={2}
+          unit="px"
+          defaultValue={0}
+          description="Vertical outer spacing"
+        />
+      ),
     },
     alignItems: {
       type: 'select',
@@ -134,14 +163,18 @@ export const ContainerBlock: ComponentConfig<ContainerBlockProps> = {
         { label: 'Full Screen (100vh)', value: 'screen-full' },
       ],
     },
+    customClass: {
+      type: 'text',
+      label: 'Custom Class (CSS Class / Tailwind)',
+    },
   },
   defaultProps: {
     layout: 'flex-col',
-    containerWidth: 'boxed',
-    paddingY: 'md',
-    paddingX: 'md',
-    marginY: 'none',
-    gap: 'md',
+    containerWidth: { value: 1280, unit: 'px' },
+    paddingY: 56,
+    paddingX: 24,
+    marginY: 0,
+    gap: 24,
     alignItems: 'stretch',
     justifyContent: 'start',
     background: 'transparent',
@@ -150,65 +183,104 @@ export const ContainerBlock: ComponentConfig<ContainerBlockProps> = {
   },
   render: ({
     layout = 'flex-col',
-    containerWidth = 'boxed',
-    paddingY = 'md',
-    paddingX = 'md',
-    marginY = 'none',
-    gap = 'md',
+    containerWidth = { value: 1280, unit: 'px' },
+    paddingY = 56,
+    paddingX = 24,
+    marginY = 0,
+    gap = 24,
     alignItems = 'stretch',
     justifyContent = 'start',
     background = 'transparent',
     borderStyle = 'none',
     minHeight = 'auto',
+    customClass = '',
     puck,
   }: any) => {
-    // 1. Vertical padding classes
-    const pyMap: Record<string, string> = {
-      none: 'py-0',
-      xs: 'py-4',
-      sm: 'py-8',
-      md: 'py-14',
-      lg: 'py-20',
-      xl: 'py-28',
+    // 1. Container Width calculation
+    const widthStyle: React.CSSProperties = {
+      width: '100%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
     }
-    const pyClass = pyMap[paddingY as string] || 'py-14'
 
-    // 2. Horizontal padding classes
-    const pxMap: Record<string, string> = {
-      none: 'px-0',
-      sm: 'px-4',
-      md: 'px-6 md:px-8',
-      lg: 'px-8 md:px-12',
+    if (containerWidth && typeof containerWidth === 'object' && 'value' in containerWidth) {
+      widthStyle.maxWidth = `${containerWidth.value}${containerWidth.unit || 'px'}`
+    } else if (typeof containerWidth === 'string') {
+      const widthMap: Record<string, string> = {
+        boxed: '1280px',
+        narrow: '896px',
+        wide: '1536px',
+        full: '100%',
+      }
+      widthStyle.maxWidth =
+        widthMap[containerWidth] ||
+        (containerWidth.endsWith('%') || containerWidth.endsWith('px')
+          ? containerWidth
+          : '1280px')
+    } else if (typeof containerWidth === 'number') {
+      widthStyle.maxWidth = `${containerWidth}px`
+    } else {
+      widthStyle.maxWidth = '1280px'
     }
-    const pxClass = pxMap[paddingX as string] || 'px-6 md:px-8'
 
-    // 3. Margin vertical classes
-    const myMap: Record<string, string> = {
-      none: 'my-0',
-      sm: 'my-4',
-      md: 'my-8',
-      lg: 'my-16',
+    // 2. Padding Y calculation
+    let pyPx = 56
+    if (typeof paddingY === 'number') {
+      pyPx = paddingY
+    } else if (typeof paddingY === 'string') {
+      const legacyPy: Record<string, number> = {
+        none: 0,
+        xs: 16,
+        sm: 32,
+        md: 56,
+        lg: 80,
+        xl: 112,
+      }
+      pyPx = legacyPy[paddingY] ?? (parseInt(paddingY, 10) || 56)
     }
-    const myClass = myMap[marginY as string] || 'my-0'
 
-    // 4. Container max-width
-    const widthMap: Record<string, string> = {
-      boxed: 'max-w-7xl mx-auto',
-      narrow: 'max-w-4xl mx-auto',
-      wide: 'max-w-[1536px] mx-auto',
-      full: 'w-full',
+    // 3. Padding X calculation
+    let pxPx = 24
+    if (typeof paddingX === 'number') {
+      pxPx = paddingX
+    } else if (typeof paddingX === 'string') {
+      const legacyPx: Record<string, number> = {
+        none: 0,
+        sm: 16,
+        md: 24,
+        lg: 48,
+      }
+      pxPx = legacyPx[paddingX] ?? (parseInt(paddingX, 10) || 24)
     }
-    const widthClass = widthMap[containerWidth as string] || 'max-w-7xl mx-auto'
 
-    // 5. Gap classes
-    const gapMap: Record<string, string> = {
-      none: 'gap-0',
-      sm: 'gap-3',
-      md: 'gap-6',
-      lg: 'gap-9',
-      xl: 'gap-12',
+    // 4. Margin Y calculation
+    let myPx = 0
+    if (typeof marginY === 'number') {
+      myPx = marginY
+    } else if (typeof marginY === 'string') {
+      const legacyMy: Record<string, number> = {
+        none: 0,
+        sm: 16,
+        md: 32,
+        lg: 64,
+      }
+      myPx = legacyMy[marginY] ?? (parseInt(marginY, 10) || 0)
     }
-    const gapClass = gapMap[gap as string] || 'gap-6'
+
+    // 5. Gap calculation
+    let gapPx = 24
+    if (typeof gap === 'number') {
+      gapPx = gap
+    } else if (typeof gap === 'string') {
+      const legacyGap: Record<string, number> = {
+        none: 0,
+        sm: 12,
+        md: 24,
+        lg: 36,
+        xl: 48,
+      }
+      gapPx = legacyGap[gap] ?? (parseInt(gap, 10) || 24)
+    }
 
     // 6. Layout mode classes
     const layoutMap: Record<string, string> = {
@@ -267,12 +339,26 @@ export const ContainerBlock: ComponentConfig<ContainerBlockProps> = {
     }
     const minHeightClass = minHeightMap[minHeight as string] || 'min-h-0'
 
+    // Section wrapper inline styles for padding and margin
+    const sectionStyle: React.CSSProperties = {
+      paddingTop: `${pyPx}px`,
+      paddingBottom: `${pyPx}px`,
+      paddingLeft: `${pxPx}px`,
+      paddingRight: `${pxPx}px`,
+      marginTop: `${myPx}px`,
+      marginBottom: `${myPx}px`,
+    }
+
+    // Inner container inline styles for width and gap
+    const innerStyle: React.CSSProperties = {
+      ...widthStyle,
+      gap: `${gapPx}px`,
+    }
+
     // Combine inner layout classes
     const innerClasses = [
       'w-full',
-      widthClass,
       layoutClass,
-      gapClass,
       alignClass,
       justifyClass,
     ]
@@ -281,20 +367,22 @@ export const ContainerBlock: ComponentConfig<ContainerBlockProps> = {
 
     return (
       <section
-        className={`w-full transition-colors relative ${bgClass} ${borderClass} ${pyClass} ${pxClass} ${myClass} ${minHeightClass}`}
+        style={sectionStyle}
+        className={`w-full transition-colors relative ${bgClass} ${borderClass} ${minHeightClass} ${customClass}`.trim()}
       >
         {puck?.isEditing ? (
           puck?.renderDropZone ? (
             puck.renderDropZone({
               zone: 'default',
               className: innerClasses,
+              style: innerStyle,
               minEmptyHeight: 96,
             })
           ) : (
-            <div className={innerClasses} />
+            <div className={innerClasses} style={innerStyle} />
           )
         ) : (
-          <div className={innerClasses}>
+          <div className={innerClasses} style={innerStyle}>
             {puck?.renderDropZone ? (
               puck.renderDropZone({
                 zone: 'default',

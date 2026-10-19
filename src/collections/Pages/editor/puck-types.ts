@@ -1,14 +1,22 @@
 import { Product } from "@/lib/products";
 import { TypographyStyle } from "./components/typography";
 
+export type RootProps = {
+    title?: string;
+    description?: string;
+    handle?: string;
+    pageCSS?: string;
+    globalCSS?: string;
+};
+
 export type PuckProps = {
     ContainerBlock: {
         layout?: "flex-col" | "flex-row" | "grid-2" | "grid-3" | "grid-4";
-        containerWidth?: "boxed" | "narrow" | "wide" | "full";
-        paddingY?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
-        paddingX?: "none" | "sm" | "md" | "lg";
-        marginY?: "none" | "sm" | "md" | "lg";
-        gap?: "none" | "sm" | "md" | "lg" | "xl";
+        containerWidth?: "boxed" | "narrow" | "wide" | "full" | { value: number; unit: "px" | "%" } | string;
+        paddingY?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | number | string;
+        paddingX?: "none" | "sm" | "md" | "lg" | number | string;
+        marginY?: "none" | "sm" | "md" | "lg" | number | string;
+        gap?: "none" | "sm" | "md" | "lg" | "xl" | number | string;
         alignItems?: "stretch" | "start" | "center" | "end";
         justifyContent?: "start" | "center" | "between" | "around" | "end";
         background?: "transparent" | "white" | "muted" | "slate" | "primary-subtle" | "dark";
